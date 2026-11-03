@@ -1,0 +1,12 @@
+# The managed-by label is the ownership marker: lab scripts refuse to delete or
+# reset a namespace that does not carry it.
+# Pod Security "baseline" blocks privileged and host-level Pods but still lets
+# attendees run ad-hoc debug Pods ("restricted" would make that needlessly hard).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: drill-baseline
+  labels:
+    app.kubernetes.io/managed-by: cka-under-pressure
+    app.kubernetes.io/instance: baseline
+    pod-security.kubernetes.io/enforce: baseline

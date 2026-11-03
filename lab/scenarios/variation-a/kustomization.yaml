@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: drill-variation-a
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: cka-under-pressure
+resources:
+  - namespace.yaml
+  - ../../base
+  - ../../base/web-service
+# SPOILER: this overlay contains the single seeded fault for variation-a.
+# Starting state: web is healthy at 3/3 and a Service exists, but its selector
+# does not match the Pods' labels.
+patches:
+  - target:
+      kind: Service
+      name: web
+    patch: |-
+      - op: replace
+        path: /spec/selector
+        value:
+          app: web

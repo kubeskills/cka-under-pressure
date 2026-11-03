@@ -1,0 +1,65 @@
+# Generic app template. Not applied directly: lab/base/web and lab/base/report
+# rename it and add identity labels, so the two Deployments share one definition.
+#
+# The app is busybox httpd serving two static files, so the lab needs a single
+# tiny image and no external dependencies. Each response names the app and Pod,
+# which lets the verifier tell which workload answered.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  template:
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: app
+          image: busybox:1.37.0
+          command: ["/bin/sh", "-c"]
+          args:
+            - >-
+              echo "app=${APP_NAME} pod=${POD_NAME}" > /www/index.html &&
+              echo ok > /www/healthz &&
+              exec httpd -f -v -p 8080 -h /www
+          env:
+            - name: APP_NAME
+              value: app
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 1
+            periodSeconds: 2
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: www
+              mountPath: /www
+      volumes:
+        - name: www
+          emptyDir:
+            sizeLimit: 1Mi

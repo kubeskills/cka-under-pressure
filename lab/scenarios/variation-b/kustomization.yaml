@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: drill-variation-b
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: cka-under-pressure
+resources:
+  - namespace.yaml
+  - ../../base
+  - ../../base/web-service
+# SPOILER: this overlay contains the single seeded fault for variation-b.
+# Starting state: the Service is correct, but the readiness check asks for a
+# path the app does not serve, so Pods run without ever becoming Ready.
+patches:
+  - target:
+      kind: Deployment
+      name: web
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/readinessProbe/httpGet/path
+        value: /ready

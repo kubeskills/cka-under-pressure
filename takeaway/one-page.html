@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CKA Under Pressure: Takeaway</title>
+<!-- Print-friendly one-pager. Keep in sync with takeaway/one-page.md.
+     Print from a browser: Letter, margins "Default" or "None", background graphics on. -->
+<style>
+  :root {
+    --ink: #1b1f24;
+    --muted: #565d66;
+    --rule: #c9ced4;
+    --accent: #0b5cad;
+    --tint: #eef4fb;
+    --warn: #8a4b00;
+    --warn-tint: #fff5e6;
+  }
+  @page { size: letter; margin: 0.45in; }
+  * { box-sizing: border-box; }
+  html { background: #fff; }
+  body {
+    margin: 0 auto;
+    max-width: 8.5in;
+    padding: 0.45in;
+    color: var(--ink);
+    background: #fff;
+    font: 10pt/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  h1 { font-size: 19pt; line-height: 1.15; margin: 0 0 2pt; }
+  .by { color: var(--muted); margin: 0 0 8pt; }
+  h2 {
+    font-size: 11pt; margin: 0 0 4pt; padding-bottom: 2pt;
+    border-bottom: 1.5pt solid var(--accent); color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .message {
+    background: var(--tint); border-left: 4pt solid var(--accent);
+    padding: 6pt 10pt; font-size: 12pt; font-weight: 600; margin: 0 0 8pt;
+  }
+  .grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 12pt; margin-bottom: 8pt; }
+  section { break-inside: avoid; }
+  table { border-collapse: collapse; width: 100%; }
+  td { vertical-align: top; padding: 3pt 4pt; border-bottom: 0.5pt solid var(--rule); }
+  td:first-child { width: 14%; font-weight: 700; white-space: nowrap; color: var(--accent); }
+  ul { margin: 0; padding-left: 14pt; }
+  li { margin: 0 0 3pt; }
+  ul.check { list-style: none; padding-left: 0; }
+  ul.check li::before { content: "\2610\00a0"; }
+  .remember { background: var(--warn-tint); border: 0.75pt solid #e6c48f; padding: 5pt 9pt; margin-bottom: 8pt; }
+  .remember h2 { color: var(--warn); border-color: var(--warn); }
+  .ladder { margin: 0 0 8pt; }
+  .ladder ol { margin: 0; padding-left: 15pt; columns: 2; column-gap: 16pt; }
+  .next { border: 1.25pt solid var(--ink); padding: 5pt 10pt; margin-bottom: 6pt; }
+  .next p { margin: 4pt 0; }
+  .line { display: inline-block; border-bottom: 0.75pt solid var(--ink); min-width: 3.3in; height: 1em; vertical-align: bottom; }
+  .line.short { min-width: 1.5in; }
+  .get { display: flex; gap: 12pt; align-items: center; margin-bottom: 6pt; }
+  .qr {
+    flex: none; width: 0.8in; height: 0.8in; border: 1pt dashed var(--muted);
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-size: 7.5pt; color: var(--muted); padding: 3pt;
+  }
+  code, .placeholder { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 9.5pt; }
+  .placeholder { background: #fff3a8; padding: 1pt 4pt; }
+  footer { color: var(--muted); font-size: 7.5pt; border-top: 0.5pt solid var(--rule); padding-top: 5pt; }
+  @media print {
+    body { padding: 0; max-width: none; }
+    html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 600px) {
+    body { padding: 16px; }
+    .grid { grid-template-columns: 1fr; }
+    .ladder ol { columns: 1; }
+    .line { min-width: 60%; }
+  }
+</style>
+</head>
+<body>
+  <h1>CKA Under Pressure: A Better Way to Practice</h1>
+  <p class="by"><strong>Chad Crowell</strong> &middot; KubeCon NA 2026 tip talk</p>
+
+  <p class="message">Don&rsquo;t practice until the exercise feels familiar. Practice until you can solve it without the walkthrough.</p>
+
+  <div class="grid">
+    <section>
+      <h2>The loop</h2>
+      <table>
+        <tr><td>Read</td><td>Say the requested outcome in one sentence. List constraints: names, ports, counts, and what <em>must not change</em>.</td></tr>
+        <tr><td>Orient</td><td>Confirm context and namespace. Inspect what exists <em>before</em> you change anything.</td></tr>
+        <tr><td>Solve</td><td>Make the smallest justified change. One change, then look.</td></tr>
+        <tr><td>Verify</td><td>Test <strong>each</strong> acceptance criterion by its behavior, from where the client lives.</td></tr>
+        <tr><td>Review</td><td>Name where you hesitated and why. Pick the one skill to drill next.</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Preflight checklist</h2>
+      <ul class="check">
+        <li>Right cluster and context? <code>kubectl config current-context</code></li>
+        <li>Right namespace on every command?</li>
+        <li>Criteria read twice, constraints underlined?</li>
+        <li>Current state inspected (<code>get</code>, <code>describe</code>, events)?</li>
+        <li>I know what &ldquo;done&rdquo; looks like and how I&rsquo;ll test it?</li>
+        <li>Mode chosen: learning, independent, or timed?</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="remember">
+    <h2>Remember</h2>
+    <ul>
+      <li><strong>A successful command is not proof of a completed task.</strong> <code>service/web exposed</code> means the API accepted the object, not that traffic reaches your app.</li>
+      <li><strong>Learn first, then add time pressure.</strong> The timer is a diagnostic tool for finding gaps, not the goal of every session. Fast typing is not competence.</li>
+      <li><strong>Hints are data.</strong> Log which one you needed; it shows you the gap.</li>
+    </ul>
+  </section>
+
+  <section class="ladder">
+    <h2>The ladder</h2>
+    <ol>
+      <li>Learn the skill, no timer</li>
+      <li>Attempt it on your own</li>
+      <li>Verify against the criteria</li>
+      <li>Review mistakes and hesitation</li>
+      <li>Repeat with a <strong>variation</strong></li>
+      <li>Add the timer once the workflow is solid</li>
+    </ol>
+  </section>
+
+  <section class="next">
+    <h2>My next practice action</h2>
+    <p>Drill / variation: <span class="line"></span></p>
+    <p style="margin-bottom:0">When: <span class="line short"></span> &nbsp; Mode: &#9744; learning &nbsp; &#9744; independent &nbsp; &#9744; timed</p>
+  </section>
+
+  <section class="get">
+    <div class="qr">QR code placeholder</div>
+    <div>
+      <h2 style="border:0;margin-bottom:2pt">Get the kit</h2>
+      <span class="placeholder">[REPO URL &mdash; PLACEHOLDER: replace before printing]</span>
+    </div>
+  </section>
+
+  <footer>
+    Original practice material. Not the exam, not affiliated with the exam, and it does not reproduce the exam environment.
+    Lab checks are not official scoring, and completing the exercises does not guarantee a pass. For exam rules and
+    requirements, use the official Linux Foundation / CNCF pages.
+  </footer>
+</body>
+</html>

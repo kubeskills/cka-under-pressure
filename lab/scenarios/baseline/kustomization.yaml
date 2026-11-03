@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: drill-baseline
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: cka-under-pressure
+resources:
+  - namespace.yaml
+  - ../../base
+# Starting state: web is under-provisioned (1 replica) and has no Service.
+patches:
+  - target:
+      kind: Deployment
+      name: web
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1

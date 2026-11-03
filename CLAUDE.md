@@ -15,7 +15,7 @@ tests/test_guard.sh        # context-guard test using a fake kubectl on PATH
 
 python3 -m unittest discover -s tests -p 'test_verify.py'                       # verifier unit tests
 python3 -m unittest tests.test_verify.BaselineTests.test_solved_state_passes    # single test
-python3 tests/check_docs.py        # docs/hints/solutions/tasks vs. verifier consistency
+python3 tests/check_docs.py        # docs, hints, solutions and tasks vs. verifier consistency
 python3 tests/check_manifests.py   # rendered kustomize manifests
 
 scripts/preflight.sh                      # read-only tool check

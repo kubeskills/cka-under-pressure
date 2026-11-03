@@ -1,0 +1,9 @@
+# Dedicated lab kubeconfig (contains client credentials for the local kind cluster)
+.kube/
+*.kubeconfig
+
+# Local notes copied from worksheets/
+my-notes/
+
+__pycache__/
+.DS_Store

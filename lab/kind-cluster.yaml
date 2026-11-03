@@ -1,0 +1,14 @@
+# Dedicated lab cluster definition for scripts/cluster-up.sh.
+# The cluster name is passed by the script (--name cka-tip-talk), not set here,
+# so the name lives in exactly one place (scripts/lib/common.sh).
+#
+# One control-plane node keeps the footprint small. In kind, a single-node
+# cluster can schedule workloads on its control-plane node.
+#
+# The node image is pinned by tag and digest. This is kind v0.30.0's default
+# image, as embedded in the kind binary that was used to test this kit.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.34.0@sha256:7416a61b42b1662ca6ca89f02028ac133a309a2a30ba309614e8ec94d976dc5a

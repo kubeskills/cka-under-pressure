@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: drill-variation-a
+  labels:
+    app.kubernetes.io/managed-by: cka-under-pressure
+    app.kubernetes.io/instance: variation-a
+    pod-security.kubernetes.io/enforce: baseline
