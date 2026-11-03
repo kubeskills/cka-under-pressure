@@ -206,4 +206,4 @@ tests/run-static.sh      # no cluster needed
 tests/e2e.sh --yes       # needs the lab cluster; mutates only drill-* namespaces in it
 ```
 
-No license has been added yet; see [`MAINTAINER-NOTES.md`](MAINTAINER-NOTES.md).
+Licensed under the [MIT License](LICENSE). See [`MAINTAINER-NOTES.md`](MAINTAINER-NOTES.md) for maintainer notes.

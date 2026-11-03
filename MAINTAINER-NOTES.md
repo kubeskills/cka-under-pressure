@@ -4,9 +4,10 @@ Not attendee-facing. Open decisions and things to review before publishing.
 
 ## Decisions needed from the author
 
-1. **License.** None was added on purpose. Choose one before publishing (for example an
-   OSI license for the scripts/manifests, and a separate content license for the
-   Markdown such as CC BY 4.0). Until then the default is "all rights reserved".
+1. **License.** MIT (`LICENSE`, copyright 2026 Chad Crowell) covers the whole repository,
+   including the Markdown content. If you would rather license the written material
+   separately (for example CC BY 4.0), add a content-license note and scope `LICENSE`
+   to the scripts and manifests.
 2. **Repository URL and QR code.** Placeholders are marked `REPO URL` in
    `takeaway/one-page.md` and `takeaway/one-page.html`. Search for `PLACEHOLDER` and replace
    both before printing. Nothing in this kit invents a URL.
