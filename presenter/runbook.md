@@ -23,7 +23,7 @@ of every session.** Learn the skill first; add time pressure once the workflow i
 - [ ] `scripts/cluster-up.sh` created the cluster (note: this downloads the node image if it is not cached).
 - [ ] `scripts/reset.sh --all --yes` ran once. This downloads the app image (`busybox`) **into the cluster node**, so the demo does not depend on conference Wi‑Fi. The cache lives inside the node; deleting the cluster discards it.
 - [ ] Rehearsed Parts 1–6 end to end at least once.
-- [ ] Takeaway sheet: QR code substituted for the placeholder in `takeaway/one-page.html` (the repo URL is already filled in), then printed and checked.
+- [ ] Takeaway sheet: print `takeaway/one-page.html` and scan the printed QR code with a phone to confirm it opens the repo (the URL and QR image are already in place).
 - [ ] (Optional) `tests/e2e.sh --yes` run against the lab cluster.
 
 ### 30 minutes before
@@ -115,9 +115,10 @@ scripts/verify.sh baseline; echo "exit code: $?"
 AC2 **PASS**; AC3 and AC4 **FAIL** (the requests don’t get through; the line names the
 symptom, not the cause); AC5 **PASS**; `exit code: 1`.
 
-> **Rehearse this once.** The expectation that `expose` without a target port produces a
-> Service that points at the wrong port is the claim this demo rests on. It is recorded in
-> `docs/validation-report.md` whether it held on the tested kubectl version.
+> **Validated, with a caveat.** On kubectl client v1.34.2 (server v1.34.0), `expose`
+> without a target port created a Service with `targetPort: 80`, and the check reported
+> `connection refused` on AC3/AC4 (see `docs/validation-report.md`). A different kubectl
+> version may behave differently, so rehearse once on the machine you will present from.
 
 **Say:** “Two commands succeeded and the task is not done. A successful command is not
 proof. The check tests behavior: can a client in the namespace actually reach the app?”

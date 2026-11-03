@@ -98,8 +98,16 @@ Seed the others with `scripts/reset.sh variation-a` and `scripts/reset.sh variat
 | Repeat setup (images cached) | 1–3 minutes |
 | One drill | 10–15 minutes independent; see each task for suggested timeboxes |
 
-These are guesses. One measured data point from a single machine is in
-[`docs/validation-report.md`](docs/validation-report.md); yours will differ.
+These are guesses. One measured data point from a single machine (cluster creation with the node
+image already cached: about 30 seconds; first seed including the `busybox` download: about 7 seconds)
+is in [`docs/validation-report.md`](docs/validation-report.md); your network and machine will differ.
+
+### Tested configuration
+
+Tested once, on macOS with bash 3.2: Docker Desktop 29.6.1, kind v0.30.0, kubectl client v1.34.2,
+Kubernetes v1.34.0 (kind node, containerd 2.1.3), Python 3.14.5. Other combinations are **untested**
+and are not claimed to be supported. Details and exactly what was and was not tested:
+[`docs/validation-report.md`](docs/validation-report.md).
 
 ## The kit at a glance
 
@@ -183,6 +191,7 @@ leaves nothing behind.
 | `verify.sh` prints `ERROR` | The check could not run; this is not a verdict on your solution. Run `scripts/preflight.sh`. |
 | My `kubectl` hits the wrong cluster | Your shell has a different `KUBECONFIG`/context. `export KUBECONFIG="$PWD/.kube/cka-tip-talk.kubeconfig"`. |
 | Another kind cluster is also running | Fine; this kit only ever touches the one named `cka-tip-talk`. Mind your Docker memory limit. |
+| `AlreadyExists` errors during `reset.sh`, or odd results from `verify.sh` | Two things are using the same lab at once (two terminals, or a test run plus a manual reset). The `drill-*` namespaces are shared state: run one reset, verify, or `tests/e2e.sh` at a time. |
 
 ## Layout
 

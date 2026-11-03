@@ -8,11 +8,12 @@ Not attendee-facing. Open decisions and things to review before publishing.
    including the Markdown content. If you would rather license the written material
    separately (for example CC BY 4.0), add a content-license note and scope `LICENSE`
    to the scripts and manifests.
-2. **QR code.** The repository URL (`https://github.com/kubeskills/cka-under-pressure`) is
-   filled in on the takeaway sheet. The QR code is still a `PLACEHOLDER` in
-   `takeaway/one-page.md` and `takeaway/one-page.html`; replace both before printing.
-   `tests/check_docs.py` requires that placeholder to remain until you drop that check, and
-   allows no URL on the sheet other than the repo URL.
+2. **Repository URL and QR code.** Both are on the takeaway sheet. The URL is
+   `https://github.com/kubeskills/cka-under-pressure`; the QR image is
+   `takeaway/qr-code-for-cka-under-pressure-talk-kubecon-na-2026.png` and decodes to that
+   URL (checked with the macOS CoreImage detector). `tests/check_docs.py` requires both the
+   URL and the image reference in the Markdown and HTML sheets, and allows no other URL there.
+   If the repo ever moves, regenerate the QR code and update the URL in `check_docs.py`.
 3. **Talk length.** The runbook is modular (core + one optional extension). Confirm the
    slot, then decide whether to keep Part 7.
 4. **Suggested timeboxes** in `tasks/*.md` (15/8 and 10/6 minutes) are unmeasured guesses.
@@ -61,6 +62,12 @@ next to it. Nothing in the kit promises a pass or claims to reproduce the exam e
 3. Add its criteria to `SCENARIOS` in `scripts/lib/verify.py`.
 4. Add `tasks/<id>.md`, `hints/<id>/level-{1,2,3}.md`, `solutions/<id>.md`.
 5. Add the id to the loops in `tests/e2e.sh`, then run `tests/run-static.sh`.
+
+## Concurrency
+
+The `drill-*` namespaces are shared state. Running two of `reset.sh`, `verify.sh`, or
+`tests/e2e.sh` against the same cluster at once collides (observed during validation as
+`AlreadyExists` errors). There is deliberately no locking; run one at a time.
 
 ## Known limitations
 
