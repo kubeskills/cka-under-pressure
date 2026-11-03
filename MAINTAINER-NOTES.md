@@ -8,9 +8,11 @@ Not attendee-facing. Open decisions and things to review before publishing.
    including the Markdown content. If you would rather license the written material
    separately (for example CC BY 4.0), add a content-license note and scope `LICENSE`
    to the scripts and manifests.
-2. **Repository URL and QR code.** Placeholders are marked `REPO URL` in
-   `takeaway/one-page.md` and `takeaway/one-page.html`. Search for `PLACEHOLDER` and replace
-   both before printing. Nothing in this kit invents a URL.
+2. **QR code.** The repository URL (`https://github.com/kubeskills/cka-under-pressure`) is
+   filled in on the takeaway sheet. The QR code is still a `PLACEHOLDER` in
+   `takeaway/one-page.md` and `takeaway/one-page.html`; replace both before printing.
+   `tests/check_docs.py` requires that placeholder to remain until you drop that check, and
+   allows no URL on the sheet other than the repo URL.
 3. **Talk length.** The runbook is modular (core + one optional extension). Confirm the
    slot, then decide whether to keep Part 7.
 4. **Suggested timeboxes** in `tasks/*.md` (15/8 and 10/6 minutes) are unmeasured guesses.

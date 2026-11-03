@@ -23,7 +23,7 @@ of every session.** Learn the skill first; add time pressure once the workflow i
 - [ ] `scripts/cluster-up.sh` created the cluster (note: this downloads the node image if it is not cached).
 - [ ] `scripts/reset.sh --all --yes` ran once. This downloads the app image (`busybox`) **into the cluster node**, so the demo does not depend on conference Wi‑Fi. The cache lives inside the node; deleting the cluster discards it.
 - [ ] Rehearsed Parts 1–6 end to end at least once.
-- [ ] Takeaway sheet: real repo URL and QR code substituted for the placeholders in `takeaway/one-page.html`, then printed and checked.
+- [ ] Takeaway sheet: QR code substituted for the placeholder in `takeaway/one-page.html` (the repo URL is already filled in), then printed and checked.
 - [ ] (Optional) `tests/e2e.sh --yes` run against the lab cluster.
 
 ### 30 minutes before

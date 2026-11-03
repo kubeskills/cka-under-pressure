@@ -45,7 +45,7 @@ When: ________________   Mode: ☐ learning  ☐ independent  ☐ timed
 
 ## Get the kit
 
-`[REPO URL — PLACEHOLDER: replace before printing]`  ·  QR code: `[PLACEHOLDER]`
+`https://github.com/kubeskills/cka-under-pressure`  ·  QR code: `[QR PLACEHOLDER: replace before printing]`
 
 ---
 

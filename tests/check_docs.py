@@ -167,8 +167,20 @@ for word in ("Read", "Orient", "Solve", "Verify", "Review"):
     check(word in tmd and word in thtml, f"takeaway missing step '{word}' in md or html")
 for phrase in ("not proof", "timer", "next practice action"):
     check(phrase in tmd.lower() and phrase in thtml.lower(), f"takeaway missing reminder: {phrase}")
-check("PLACEHOLDER" in tmd and "PLACEHOLDER" in thtml, "takeaway must keep the repo URL / QR placeholder")
-check(not re.search(r"https?://", tmd + thtml), "takeaway must not contain an invented URL")
+REPO_URL = "https://github.com/kubeskills/cka-under-pressure"
+check(
+    "PLACEHOLDER" in tmd and "PLACEHOLDER" in thtml,
+    "takeaway must keep the QR placeholder",
+)
+check(
+    REPO_URL in tmd and REPO_URL in thtml,
+    "takeaway must show the repo URL in both md and html",
+)
+found_urls = set(re.findall(r"https?://[^\s)`<\"']+", tmd + thtml))
+check(
+    found_urls <= {REPO_URL},
+    f"takeaway must not contain URLs other than the repo URL: {sorted(found_urls - {REPO_URL})}",
+)
 
 # 8. No unpinned/latest images anywhere in the kit.
 for path in list(ROOT.rglob("*.yaml")) + list(ROOT.rglob("*.sh")) + list(ROOT.rglob("*.py")) + list(kit_markdown()):
