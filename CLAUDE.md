@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A workshop companion kit (not an application) for a KubeCon NA 2026 CKA-practice talk: three drills (`baseline`, `variation-a`, `variation-b`) run against a disposable kind cluster named `cka-tip-talk`. Most of the repo is learner-facing Markdown; the code is the lab tooling (bash + stdlib-only Python) and the tests that keep docs, manifests, and the verifier consistent. `README.md` is attendee-facing; `MAINTAINER-NOTES.md` holds open decisions (the MIT license scope, the QR placeholder in `takeaway/`).
+A workshop companion kit (not an application) for a KubeCon NA 2026 CKA-practice talk: three drills (`baseline`, `variation-a`, `variation-b`) run against a disposable kind cluster named `cka-tip-talk`. Most of the repo is learner-facing Markdown; the code is the lab tooling (bash + stdlib-only Python) and the tests that keep docs, manifests, and the verifier consistent. `README.md` is attendee-facing; `MAINTAINER-NOTES.md` holds open decisions (the MIT license scope, the repo URL and QR code on the `takeaway/` sheet).
 
 ## Commands
 

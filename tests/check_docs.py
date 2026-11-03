@@ -168,10 +168,16 @@ for word in ("Read", "Orient", "Solve", "Verify", "Review"):
 for phrase in ("not proof", "timer", "next practice action"):
     check(phrase in tmd.lower() and phrase in thtml.lower(), f"takeaway missing reminder: {phrase}")
 REPO_URL = "https://github.com/kubeskills/cka-under-pressure"
+QR_PNG = "qr-code-for-cka-under-pressure-talk-kubecon-na-2026.png"
 check(
-    "PLACEHOLDER" in tmd and "PLACEHOLDER" in thtml,
-    "takeaway must keep the QR placeholder",
+    "PLACEHOLDER" not in tmd and "PLACEHOLDER" not in thtml,
+    "takeaway still has a PLACEHOLDER; replace it before printing",
 )
+check(
+    QR_PNG in tmd and QR_PNG in thtml,
+    "takeaway must reference the QR code image in both md and html",
+)
+check((ROOT / "takeaway" / QR_PNG).is_file(), f"takeaway/{QR_PNG} is missing")
 check(
     REPO_URL in tmd and REPO_URL in thtml,
     "takeaway must show the repo URL in both md and html",

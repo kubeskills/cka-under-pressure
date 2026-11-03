@@ -56,11 +56,7 @@
   .line { display: inline-block; border-bottom: 0.75pt solid var(--ink); min-width: 3.3in; height: 1em; vertical-align: bottom; }
   .line.short { min-width: 1.5in; }
   .get { display: flex; gap: 12pt; align-items: center; margin-bottom: 6pt; }
-  .qr {
-    flex: none; width: 0.8in; height: 0.8in; border: 1pt dashed var(--muted);
-    display: flex; align-items: center; justify-content: center; text-align: center;
-    font-size: 7.5pt; color: var(--muted); padding: 3pt;
-  }
+  .qr { flex: none; width: 1in; height: 1in; }
   code, .placeholder { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 9.5pt; }
   .placeholder { background: #fff3a8; padding: 1pt 4pt; }
   footer { color: var(--muted); font-size: 7.5pt; border-top: 0.5pt solid var(--rule); padding-top: 5pt; }
@@ -135,7 +131,7 @@
   </section>
 
   <section class="get">
-    <div class="qr">QR PLACEHOLDER</div>
+    <img class="qr" src="qr-code-for-cka-under-pressure-talk-kubecon-na-2026.png" alt="QR code linking to the CKA Under Pressure repository">
     <div>
       <h2 style="border:0;margin-bottom:2pt">Get the kit</h2>
       <code>https://github.com/kubeskills/cka-under-pressure</code>

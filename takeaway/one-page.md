@@ -45,7 +45,9 @@ When: ________________   Mode: ☐ learning  ☐ independent  ☐ timed
 
 ## Get the kit
 
-`https://github.com/kubeskills/cka-under-pressure`  ·  QR code: `[QR PLACEHOLDER: replace before printing]`
+`https://github.com/kubeskills/cka-under-pressure`
+
+![QR code linking to the CKA Under Pressure repository](qr-code-for-cka-under-pressure-talk-kubecon-na-2026.png)
 
 ---
 
