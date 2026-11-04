@@ -27,6 +27,7 @@ TOP_DIRS = (
     "takeaway",
     "presenter",
     "docs",
+    "FAQ",
 )
 # Vocabulary that would reveal how to solve a task. Must not appear in task briefs.
 SPOILER_TERMS = [
@@ -200,10 +201,33 @@ for path in list(ROOT.rglob("*.yaml")) + list(ROOT.rglob("*.sh")) + list(ROOT.rg
 # 9. No exam facts asserted without verification (the kit makes none).
 risky = re.compile(r"passing score|domain weight|\d+\s*%\s+of the exam|exam (duration|length|format)|guarantees? (a )?pass", re.I)
 negation = re.compile(r"(does not|not|no)\s+guarantee|nothing says", re.I)
+# The FAQ is the one place exam facts are allowed, and only in a section that cites an
+# official Linux Foundation page with the date it was checked.
+verified_source = re.compile(
+    r"Sources?\s*\(checked \d{4}-\d{2}-\d{2}\):.*https://(training|docs)\.linuxfoundation\.org/"
+)
+
+
+def verified_sections(lines):
+    """Return the set of 0-based line indexes inside a section citing a source."""
+    starts = [i for i, ln in enumerate(lines) if ln.startswith("#")] + [len(lines)]
+    ok = set()
+    for begin, end in zip(starts, starts[1:]):
+        if any(verified_source.search(ln) for ln in lines[begin:end]):
+            ok.update(range(begin, end))
+    return ok
+
+
 for md in kit_markdown():
-    for lineno, line in enumerate(md.read_text().splitlines(), 1):
-        if risky.search(line) and not negation.search(line):
-            check(False, f"{md.relative_to(ROOT)}:{lineno} may assert an unverified exam fact: {line.strip()[:80]}")
+    lines = md.read_text().splitlines()
+    sourced = verified_sections(lines) if md.parent == ROOT / "FAQ" else set()
+    for index, line in enumerate(lines):
+        if risky.search(line) and not negation.search(line) and index not in sourced:
+            check(
+                False,
+                f"{md.relative_to(ROOT)}:{index + 1} may assert an unverified exam fact: "
+                f"{line.strip()[:80]}",
+            )
 
 # 10. Scripts are executable.
 for path in sorted((ROOT / "scripts").glob("*.sh")) + sorted((ROOT / "tests").glob("*.sh")):

@@ -29,12 +29,18 @@ Not attendee-facing. Open decisions and things to review before publishing.
 
 ## Exam-claims policy
 
-The kit makes **no** claims about current exam requirements, domains, weights, versions,
-allowed resources or rules. It links outward instead: the README links the official Linux
-Foundation exam page and the Kubernetes docs. **Both URLs were copied from your own resource
-list and were not fetched or re-verified by this build.** If you later add an exam claim,
-verify it against the official Linux Foundation / CNCF source and record the URL and date
-next to it. Nothing in the kit promises a pass or claims to reproduce the exam environment.
+Exam facts (the test format and time limit, the pass mark, topic weightings, Kubernetes
+version, allowed resources, proctoring rules) live **only** in `FAQ/cka-exam-faq.md`. Each answer there must end with
+`Source (checked YYYY-MM-DD): <official Linux Foundation URL>`, and `tests/check_docs.py`
+fails if a section asserts such a fact without that line. Outside `FAQ/` it always fails.
+Everywhere else the kit links outward instead of asserting. Nothing in the kit promises a
+pass or claims to reproduce the exam environment.
+
+The FAQ was checked on 2026-11-04 against the official exam page, the CKA/CKAD/CKS FAQ and
+the resources-allowed page. The pages were read through an automated fetch-and-summarize
+tool, not by hand, so **re-read the three pages yourself before publishing or presenting**,
+and refresh the dates when you re-verify. The Kubernetes version (v1.37) has been confirmed
+by the author against the official source; the other facts have not been re-read by hand.
 
 ## Spoiler hygiene
 

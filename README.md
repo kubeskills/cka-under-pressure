@@ -22,8 +22,9 @@ and only then add time pressure. Fast typing is not competence.
 - For current exam requirements, rules, and what is permitted, use the official Linux
   Foundation page for the exam:
   <https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/>
-  (and the Kubernetes docs at <https://kubernetes.io/docs/home/>). This kit makes no claims
-  about the exam's requirements.
+  (and the Kubernetes docs at <https://kubernetes.io/docs/home/>). The only exam facts in this
+  kit are in [`FAQ/cka-exam-faq.md`](FAQ/cka-exam-faq.md), each with its official source and
+  the date it was checked; they can go stale, so confirm on the official pages.
 
 ## Start here
 
@@ -123,6 +124,7 @@ and are not claimed to be supported. Details and exactly what was and was not te
 | Reference solutions (one valid solution each) | [`solutions/`](solutions/) |
 | Verification | [`scripts/verify.sh`](scripts/verify.sh), tested by [`tests/`](tests/) |
 | Worksheet / retrospective | [`worksheets/`](worksheets/) |
+| CKA exam FAQ (sourced, dated) | [`FAQ/cka-exam-faq.md`](FAQ/cka-exam-faq.md) |
 | Presenter runbook | [`presenter/runbook.md`](presenter/runbook.md) |
 | Validation report (what was and wasn't tested) | [`docs/validation-report.md`](docs/validation-report.md) |
 | Adapting to a browser lab | [`docs/adapting-to-killercoda.md`](docs/adapting-to-killercoda.md) |
@@ -206,6 +208,7 @@ lab/          kind config + kustomize manifests (contains seeded faults)
 scripts/      preflight, cluster-up/down, reset, clean, verify
 tests/        static checks, unit tests, end-to-end test
 docs/         validation report, adaptation note
+FAQ/          CKA exam FAQ (exam facts with official sources and check dates)
 ```
 
 ## Tests (for maintainers)

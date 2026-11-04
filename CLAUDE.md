@@ -50,5 +50,5 @@ shellcheck, black, and yamllint are optional in `run-static.sh`: missing tools r
 
 - Scripts must run on macOS bash 3.2: no associative arrays, `mapfile`, or `${var,,}`; use `${arr[@]+"${arr[@]}"}` for possibly-empty arrays under `set -u`. `common.sh` refuses to be sourced from zsh/sh.
 - Python is standard library only, ≥ 3.8 (`from __future__ import annotations`), black-formatted.
-- Spoiler hygiene: don't put solution hints in task briefs, setup output, or comments outside `lab/scenarios/`; don't make claims about current CKA exam requirements (link to the Linux Foundation page instead).
+- Spoiler hygiene: don't put solution hints in task briefs, setup output, or comments outside `lab/scenarios/`; exam facts belong only in `FAQ/cka-exam-faq.md`, each answer ending `Source (checked YYYY-MM-DD): <official LF URL>` (enforced by `tests/check_docs.py`); elsewhere link to the Linux Foundation page instead of asserting.
 - `.kube/` and `*.kubeconfig` are git-ignored (lab credentials); never commit them.
