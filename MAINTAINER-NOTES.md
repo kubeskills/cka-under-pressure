@@ -14,8 +14,8 @@ Not attendee-facing. Open decisions and things to review before publishing.
    URL (checked with the macOS CoreImage detector). `tests/check_docs.py` requires both the
    URL and the image reference in the Markdown and HTML sheets, and allows no other URL there.
    If the repo ever moves, regenerate the QR code and update the URL in `check_docs.py`.
-3. **Talk length.** The runbook is modular (core + one optional extension). Confirm the
-   slot, then decide whether to keep Part 7.
+3. **Talk length.** Decided: the slot is 10 minutes and Part 7 stays in the runbook. No
+   per-part timings are measured yet; rehearse against a stopwatch and re-time.
 4. **Suggested timeboxes** in `tasks/*.md` (15/8 and 10/6 minutes) are unmeasured guesses.
    Pilot them with a few attendees and adjust.
 5. **The repo's existing README.** `README.md` previously held only a title and one line

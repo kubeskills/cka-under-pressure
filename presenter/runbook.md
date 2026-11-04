@@ -1,8 +1,8 @@
 # Presenter runbook — “CKA Under Pressure: A Better Way to Practice”
 
-**Talk length:** not yet confirmed. This runbook is modular: the **core demo** (Parts 1–6)
-stands alone; the **extension** (Part 7) is optional. Pacing notes are rough estimates,
-not rehearsed timings. Re-time after a rehearsal.
+**Talk length:** 10 minutes. The **core demo** (Parts 1–6) stands alone; the **extension**
+(Part 7, a variation) is kept in the plan. No per-part timings have been measured. Rehearse
+the whole run against a stopwatch and re-time after the rehearsal.
 
 **The point of the demo is the practice method, not kubectl speed.** Type slowly. Narrate
 the *reading*, the *orienting*, and the *verifying*. If the audience remembers one thing:
@@ -158,9 +158,9 @@ scripts/reset.sh --yes baseline
 
 ---
 
-## Optional extension — Part 7: a variation (`variation-a`)
+## Extension — Part 7: a variation (`variation-a`)
 
-Use this if time allows. It shows the same workflow on a *different* fault.
+Kept in the plan for the 10-minute slot. It shows the same workflow on a *different* fault.
 
 ```bash
 scripts/reset.sh --yes variation-a
