@@ -90,9 +90,22 @@ kubectl -n drill-baseline get deployments,pods -o wide
 # 6. Read the brief, then work the task without the solution.
 cat tasks/baseline.md
 
-# 7. Check your work. Add --diagnose for read-only observations (no advice).
+# 7. While you work, test port 80 on the web Service the way a client would: from a
+#    temporary Pod inside the namespace (see the note below). Prints "app=web pod=web-..." on success.
+kubectl -n drill-baseline run client --rm -i --restart=Never --image=busybox:1.37.0 -- \
+  wget -qO- -T 2 http://web:80/
+
+# 8. Check your work. Add --diagnose for read-only observations (no advice).
 scripts/verify.sh baseline
 ```
+
+**Why a temporary Pod?** A Service's cluster IP is a virtual address that only exists inside the
+cluster, and the name `web` only resolves there, so `curl` or `wget` from your laptop cannot reach it.
+The `client` Pod runs `wget` from inside the namespace, which is the same path a real client takes.
+`--rm` deletes the Pod when the command exits. The request fails until you have made `web` reachable;
+that is the point of the drill, not a setup problem. For other scenarios, change the namespace
+(`drill-variation-a`, `drill-variation-b`). `scripts/verify.sh` runs the same kind of in-cluster
+check for you.
 
 Start the others with `scripts/reset.sh variation-a` and `scripts/reset.sh variation-b`.
 
