@@ -63,8 +63,8 @@ scripts/preflight.sh
 
 | Image | Used for | When |
 |---|---|---|
-| `kindest/node` (version and digest pinned in [`lab/kind-cluster.yaml`](lab/kind-cluster.yaml)) | the kind node | `scripts/cluster-up.sh`, unless already cached |
-| `busybox` (tag pinned in [`lab/base/app-template/deployment.yaml`](lab/base/app-template/deployment.yaml)) | the demo app, the `report` workload, and the verifier's probe Pod | first `scripts/reset.sh` |
+| `kindest/node:v1.34.0` (tag and digest pinned in [`lab/kind-cluster.yaml`](lab/kind-cluster.yaml)) | the kind node: the whole cluster runs inside this one Docker container | `scripts/cluster-up.sh`, pulled by Docker on your machine, unless already cached |
+| `busybox:1.37.0` (tag pinned in [`lab/base/app-template/deployment.yaml`](lab/base/app-template/deployment.yaml)) | the `web` and `report` apps, and the verifier's probe Pod | first `scripts/reset.sh`, pulled by the kind node from Docker Hub |
 
 ## Quickstart
 
@@ -73,23 +73,44 @@ scripts/preflight.sh
 scripts/preflight.sh
 
 # 2. Create the dedicated kind cluster "cka-tip-talk" (asks before it creates anything).
+#    One node, built from the image kindest/node:v1.34.0 (pinned in lab/kind-cluster.yaml).
 scripts/cluster-up.sh
 
 # 3. Point THIS terminal at the lab cluster (your ~/.kube/config is never modified).
 export KUBECONFIG="$PWD/.kube/cka-tip-talk.kubeconfig"
 kubectl config current-context        # expect: kind-cka-tip-talk
 
-# 4. Seed the baseline drill.
+# 4. Start the baseline drill: creates namespace drill-baseline and deploys the lab app
+#    (Deployments "web" and "report", container image busybox:1.37.0).
 scripts/reset.sh baseline
 
-# 5. Read the brief, then work the task without the solution.
+# 5. Confirm it is running. The IMAGES column should show busybox:1.37.0.
+kubectl -n drill-baseline get deployments,pods -o wide
+
+# 6. Read the brief, then work the task without the solution.
 cat tasks/baseline.md
 
-# 6. Check your work. Add --diagnose for read-only observations (no advice).
+# 7. Check your work. Add --diagnose for read-only observations (no advice).
 scripts/verify.sh baseline
 ```
 
-Seed the others with `scripts/reset.sh variation-a` and `scripts/reset.sh variation-b`.
+Start the others with `scripts/reset.sh variation-a` and `scripts/reset.sh variation-b`.
+
+### What starting a drill does
+
+You never run `kubectl apply` yourself; `scripts/reset.sh <scenario>` does it, so the starting state is
+identical every time. It:
+
+1. Checks that it is talking to the lab cluster (context `kind-cka-tip-talk`), or exits without changing anything.
+2. Deletes the namespace `drill-<scenario>` first **if it already exists** (it asks before it does, and
+   only for namespaces carrying this lab's ownership label).
+3. Applies `lab/scenarios/<scenario>` with kustomize (`kubectl apply -k`). Output is hidden on purpose,
+   so setup does not tell you what each scenario starts with.
+4. Waits up to 3 minutes for the Pods to start.
+
+Every `web` and `report` Pod runs `busybox httpd` on port 8080 from the same image, because both
+Deployments are generated from one definition, `lab/base/app-template/deployment.yaml`. The image
+list, with where each one comes from, is under [What gets downloaded](#what-gets-downloaded).
 
 ### Estimated time (estimates until measured)
 

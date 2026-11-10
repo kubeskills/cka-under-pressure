@@ -198,6 +198,18 @@ for path in list(ROOT.rglob("*.yaml")) + list(ROOT.rglob("*.sh")) + list(ROOT.rg
     text = path.read_text()
     check(not re.search(r"image:\s*\S+:latest\b|--image=\S+:latest\b", text), f"{path.relative_to(ROOT)} uses a :latest image")
 
+# 8b. The images the README names are the ones the manifests actually pin.
+readme_text = (ROOT / "README.md").read_text()
+app_image = verify.read_app_image()
+check(app_image in readme_text, f"README must name the app image {app_image}")
+node_match = re.search(
+    r"image:\s*(kindest/node:[^@\s]+)", (ROOT / "lab" / "kind-cluster.yaml").read_text()
+)
+check(node_match is not None, "lab/kind-cluster.yaml must pin a kindest/node image")
+if node_match:
+    node_image = node_match.group(1)
+    check(node_image in readme_text, f"README must name the node image {node_image}")
+
 # 9. No exam facts asserted without verification (the kit makes none).
 risky = re.compile(r"passing score|domain weight|\d+\s*%\s+of the exam|exam (duration|length|format)|guarantees? (a )?pass", re.I)
 negation = re.compile(r"(does not|not|no)\s+guarantee|nothing says", re.I)

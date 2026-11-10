@@ -55,7 +55,7 @@ by the author against the official source; the other facts have not been re-read
 | If you change… | Also update / re-run |
 |---|---|
 | Acceptance criteria text | `tasks/<id>.md` **and** `scripts/lib/verify.py` (`tests/check_docs.py` enforces exact matches) |
-| The app image tag | Only `lab/base/app-template/deployment.yaml`; the verifier and scripts read it from there. Re-run `tests/e2e.sh` |
+| The app image tag, or the kind node image | `lab/base/app-template/deployment.yaml` (app) or `lab/kind-cluster.yaml` (node); the verifier and scripts read them from there. Also update the image names in the `README.md` quickstart and download table (`tests/check_docs.py` enforces it). Re-run `tests/e2e.sh` |
 | `takeaway/one-page.md` | `takeaway/one-page.html` (kept in sync by hand; a heading check exists) |
 | Solutions | Commands in ` ```bash solution ` blocks are executed verbatim by `tests/e2e.sh` |
 | Runbook demo commands | ` ```bash demo-mistake ` / ` demo-recover ` blocks are executed by `tests/e2e.sh` |
