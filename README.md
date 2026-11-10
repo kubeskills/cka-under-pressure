@@ -252,4 +252,70 @@ tests/run-static.sh      # no cluster needed
 tests/e2e.sh --yes       # needs the lab cluster; mutates only drill-* namespaces in it
 ```
 
+## Continue with variation-a and variation-b
+
+Do these after you have solved the baseline and reviewed it, ideally a few days later and without
+notes. They assume the [quickstart](#quickstart) is done: the cluster exists and your terminal has
+`KUBECONFIG` pointed at it. Work one variation at a time, because they share the lab cluster.
+
+### variation-a — [`tasks/variation-a.md`](tasks/variation-a.md)
+
+```bash
+# 1. Confirm this terminal is pointed at the lab cluster.
+kubectl config current-context        # expect: kind-cka-tip-talk
+
+# 2. Start the drill: creates namespace drill-variation-a and deploys the lab app
+#    (Deployments "web" and "report", container image busybox:1.37.0).
+scripts/reset.sh variation-a
+
+# 3. Confirm it is running. The IMAGES column should show busybox:1.37.0.
+kubectl -n drill-variation-a get deployments,pods -o wide
+
+# 4. Read the brief, then work the task without the solution.
+cat tasks/variation-a.md
+
+# 5. While you work, test port 80 on the web Service from a temporary Pod inside the namespace.
+kubectl -n drill-variation-a run client --rm -i --restart=Never --image=busybox:1.37.0 -- \
+  wget -qO- -T 2 http://web:80/
+
+# 6. Check your work. Add --diagnose for read-only observations (no advice).
+scripts/verify.sh variation-a
+```
+
+### variation-b — [`tasks/variation-b.md`](tasks/variation-b.md)
+
+```bash
+# 1. Confirm this terminal is pointed at the lab cluster.
+kubectl config current-context        # expect: kind-cka-tip-talk
+
+# 2. Start the drill: creates namespace drill-variation-b and deploys the lab app
+#    (Deployments "web" and "report", container image busybox:1.37.0).
+scripts/reset.sh variation-b
+
+# 3. Confirm it is running. The IMAGES column should show busybox:1.37.0.
+kubectl -n drill-variation-b get deployments,pods -o wide
+
+# 4. Read the brief, then work the task without the solution.
+cat tasks/variation-b.md
+
+# 5. While you work, test port 80 on the web Service from a temporary Pod inside the namespace.
+kubectl -n drill-variation-b run client --rm -i --restart=Never --image=busybox:1.37.0 -- \
+  wget -qO- -T 2 http://web:80/
+
+# 6. Check your work. Add --diagnose for read-only observations (no advice).
+scripts/verify.sh variation-b
+```
+
+The first `verify.sh` run on variation-b takes roughly 15–20 seconds because it waits for Pods.
+
+For both: open [`hints/`](hints/) one level at a time, and only when stuck. Open
+[`solutions/`](solutions/) last. Start over with `scripts/reset.sh <scenario>` (it asks before
+deleting the namespace). The `client` Pod is deleted automatically (`--rm`), and the request fails
+until you have fixed the problem; that is the point of the drill. Add a timer only after an
+independent run succeeds without hints, then fill in
+[`worksheets/practice-worksheet.md`](worksheets/practice-worksheet.md) and
+[`worksheets/retrospective.md`](worksheets/retrospective.md).
+
+---
+
 Licensed under the [MIT License](LICENSE). See [`MAINTAINER-NOTES.md`](MAINTAINER-NOTES.md) for maintainer notes.
