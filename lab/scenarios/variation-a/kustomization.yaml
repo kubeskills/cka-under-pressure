@@ -11,6 +11,8 @@ resources:
 # SPOILER: this overlay contains the single seeded fault for variation-a.
 # Starting state: web is healthy at 3/3 and a Service exists, but its selector
 # does not match the Pods' labels.
+# The targetPort is set to the container's number (8080) in this scenario only, so
+# the Service reads the same as in the baseline solution. It is not part of the fault.
 patches:
   - target:
       kind: Service
@@ -20,3 +22,6 @@ patches:
         path: /spec/selector
         value:
           app: web
+      - op: replace
+        path: /spec/ports/0/targetPort
+        value: 8080

@@ -43,7 +43,7 @@ labels match its selector, so it had no endpoints and requests were not answered
 |---|---|
 | AC1 | Unchanged — the Deployment was healthy and still is. |
 | AC2 | The Service keeps its name, type and port; only its selector changed. |
-| AC3 | With a matching selector the Service has endpoints; port 80 maps to the named port `http`. |
+| AC3 | With a matching selector the Service has endpoints; port 80 maps to the container's port 8080. |
 | AC4 | `app.kubernetes.io/name=web` matches only `web` Pods; `report` has a different value. |
 | AC5 | The Deployment spec was not touched (generation stays 1), so Pods were not rolled. |
 | AC6 | `report`, the NetworkPolicy and the `web` image are untouched. |
@@ -54,7 +54,7 @@ labels match its selector, so it had no endpoints and requests were not answered
 - Edit the Service with `kubectl edit` or `kubectl patch` (remember that a merge patch
   keeps old keys unless you null them).
 - Delete the Service and recreate it with `kubectl expose deployment web --port=80
-  --target-port=http`, which copies the Deployment's selector.
+  --target-port=8080`, which copies the Deployment's selector.
 
 ## Common wrong turns
 
